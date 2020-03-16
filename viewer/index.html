@@ -25,7 +25,17 @@
         min-width: 640px;
         width: 100%;
         min-height: 480px;
-        height: 100%;
+        height: 50vh;
+    }
+
+    #hexview {
+        width: 100%;
+        height: 50vh;
+
+        white-space: nowrap;
+        overflow: auto;
+
+        font: 10px monospace;
     }
 </style>
         <div class="panel-box">
@@ -33,17 +43,25 @@
                 <input type="file" id="input-file"/>
                 <hr/>
                 <label for="input-start">region start</label>
-                <input type="number" id="input-start" value="3685856"/>
+                <input type="number" id="input-start" value="3685856">
+                <button id="btn-start-back-10rows">&lt;&lt; 10 rows</button>
+                <button id="btn-start-back-row">&lt;&lt; row</button>
+                <button id="btn-start-fwd-row">row &gt;&gt;</button>
+                <button id="btn-start-fwd-10rows">10 rows &gt;&gt;</button>
                 <hr/>
                 <label for="input-size">region size</label>
-                <input type="number" id="input-size" value="2048"/>
+                <input type="number" id="input-size" value="2048">
+                <button id="btn-size-align-to-width">align to width up</button>
                 <hr/>
                 <label for="image-width">image width</label>
-                <input type="number" id="image-width" value="32"/>
+                <input type="number" id="image-width" value="32">
+                <button id="btn-width-inc">&times; 2</button>
+                <button id="btn-width-dec">&divide; 2</button>
             </div>
             <div class="panel panel-right">
-                <canvas id="preview"/>
+                <canvas id="preview"></canvas>
             </div>
         </div>
+        <textarea id="hexview"></textarea>
     </body>
 </html>
