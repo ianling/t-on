@@ -1,14 +1,23 @@
-mall room
-3666582
-11000
-64
+flying_frogg 3685854 2048 32
+00 00 40 44 10 00 01 ff 07 e0 60 00 00 14 10 1c 23 ea 04 8f 4b 46 92 aa cd 55 ff ff 23 77 04 be be 7a e7 ff 0f 3d 26 37
 
-castle
-5015446
-9192
-64
+mallroom 3666582 11000 64
+00 00 80 80 10 00 01 ff 07 e0 b7 ff 7f 96 fe 5f ff 34 b4 14 fd bf 66 9e a5 5f 84 1c ff ff fc 1f a7 9f f6 50 fe 59 96 9f
 
-castle#2
-5007342
-9129
-64
+castle_1 5015446 9192 64
+00 00 80 80 10 00 01 ff 07 e0 ff 4f ff f4 fb 6d a4 7f 72 df de fb ff ff 07 ff 5c df fd 3f ef 3c a7 ff 6f f8 57 0f 87 fc
+
+castle_2 5007342 9129 64
+00 00 80 80 10 00 01 ff 07 e0 ff 4f ff f4 fb 6d 07 ff a4 7f 72 df de fb ff ff 5c df fd 3f 57 0f ef 3c a7 ff 6f f8 87 fc
+
+cacti_man_1 3681698 2048 17
+00 00 22 1e 0b 00 01 ff 07 e0 60 00 ef ff c7 df 8f 5e ff ff 07 9f cd 7e 06 1e ac 3c 7b 2c
+
+cacti_man_2 3682221 2048 17
+00 00 22 1e 0b 00 01 ff 07 e0 60 00 ef ff c7 df 8f 5e ff ff 07 9f cd 7e 06 1e ac 3c 7b 2c
+
+cacti_man_3 3682761 2048 17
+00 00 22 1e 0b 00 01 ff 07 e0 60 00 ef ff c7 df 8f 5e ff ff 07 9f cd 7e 06 1e ac 3c 7b 2c
+
+cacti_man_4 3683301 2048 17
+00 00 22 1e 0b 00 01 ff 07 e0 60 00 ef ff c7 df 8f 5e ff ff 07 9f cd 7e 06 1e ac 3c 7b 2c

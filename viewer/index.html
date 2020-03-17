@@ -1,9 +1,8 @@
 <!doctype html>
-<html>
-    <head>
-        <script src="app.js"></script>
-    </head>
-    <body>
+<head>
+    <script src="app.js"></script>
+</head>
+<body>
 <style>
     .panel-box {
         display: flex;
@@ -13,14 +12,6 @@
         flex: 1;
     }
 
-    .panel-left {
-
-    }
-
-    .panel-right {
-
-    }
-
     #preview {
         min-width: 640px;
         width: 100%;
@@ -28,40 +19,54 @@
         height: 50vh;
     }
 
-    #hexview {
+    .hexview {
         width: 100%;
-        height: 50vh;
 
         white-space: nowrap;
         overflow: auto;
 
         font: 10px monospace;
     }
+
+    #hexview {
+        height: 50vh;
+    }
+
+    #image-header {
+        height: 92px;
+        font-size: 12px;
+    }
 </style>
-        <div class="panel-box">
-            <div class="panel panel-left">
-                <input type="file" id="input-file"/>
-                <hr/>
-                <label for="input-start">region start</label>
-                <input type="number" id="input-start" value="3685856">
-                <button id="btn-start-back-10rows">&lt;&lt; 10 rows</button>
-                <button id="btn-start-back-row">&lt;&lt; row</button>
-                <button id="btn-start-fwd-row">row &gt;&gt;</button>
-                <button id="btn-start-fwd-10rows">10 rows &gt;&gt;</button>
-                <hr/>
-                <label for="input-size">region size</label>
-                <input type="number" id="input-size" value="2048">
-                <button id="btn-size-align-to-width">align to width up</button>
-                <hr/>
-                <label for="image-width">image width</label>
-                <input type="number" id="image-width" value="32">
-                <button id="btn-width-inc">&times; 2</button>
-                <button id="btn-width-dec">&divide; 2</button>
-            </div>
-            <div class="panel panel-right">
-                <canvas id="preview"></canvas>
-            </div>
+    <div class="panel-box">
+        <div class="panel panel-left">
+            <input type="file" id="input-file"/>
+            <hr/>
+            <label for="input-start">region start</label>
+            <input type="number" id="input-start" value="3685856">
+            <button id="btn-start-back-10rows">&uarr; 10 rows</button>
+            <button id="btn-start-back-row">&uarr; row</button>
+            <button id="btn-start-fwd-row">row &darr;</button>
+            <button id="btn-start-fwd-10rows">10 rows &darr;</button>
+            <hr/>
+            <label for="input-size">region size</label>
+            <input type="number" id="input-size" value="2048">
+            <button id="btn-size-align-to-width">align to width</button>
+            <button id="btn-size-add-10rows">&plus; 10 rows</button>
+            <button id="btn-size-add-row">&plus; row</button>
+            <button id="btn-size-remove-row">&minus; row</button>
+            <button id="btn-size-remove-10rows">&minus; 10 rows</button>
+            <hr/>
+            <label for="image-width">image width</label>
+            <input type="number" id="image-width" value="32">
+            <button id="btn-width-inc">&times; 2</button>
+            <button id="btn-width-dec">&divide; 2</button>
+            <hr/>
+            <label for="image-header">first image header</label>
+            <textarea id="image-header" class="hexview"></textarea>
         </div>
-        <textarea id="hexview"></textarea>
-    </body>
-</html>
+        <div class="panel panel-right">
+            <canvas id="preview"></canvas>
+        </div>
+    </div>
+    <textarea id="hexview" class="hexview"></textarea>
+</body>

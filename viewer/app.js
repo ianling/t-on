@@ -16,10 +16,34 @@ function byteToChar(byte) {
 function bytesToHex(bytes, width) {
     let out = '';
     for (let row = 0; row < bytes.length / width; row++) {
-        const slice = Array.from(bytes.slice(row * width, (row + 1) * width - 1));
+        const slice = Array.from(bytes.slice(row * width, (row + 1) * width));
 
         out += slice.map(byteToHex).join(' ') + '   ';
         out += slice.map(byteToChar).join('') + '\n'
+    }
+    return out;
+}
+
+function findFirstImageHeader(bytes) {
+    let out = '**HEADER NOT FOUND**';
+    for (let i = 0; i < bytes.length - 10; i++) {
+        if (bytes[i] === 0        /* magic  */
+            && bytes[i+1] === 0   /* magic  */
+            && bytes[i+2] > 0     /* width  */
+            && bytes[i+3] > 0     /* height */
+            && bytes[i+5] === 0   /* magic? */
+            && bytes[i+6] === 1   /* magic? */
+            && bytes[i+7] === 255 /* magic? */
+        ) {
+            const varlen = bytes[i+4]; /* variable part len */
+            const header = Array.from(bytes.slice(i, i + 8 + varlen*2));
+
+            out = 'width:    ' + header[2] + '\n';
+            out += 'height:   ' + header[3] + '\n';
+            out += 'varlen:   ' + header[4] + '\n';
+            out += 'variable: ' + header.slice(8).map(byteToHex).join(' ') + '\n';
+            return out;
+        }
     }
     return out;
 }
@@ -51,6 +75,7 @@ async function init() {
     const inputSize = $('#input-size');
     const imageWidth = $('#image-width');
     const hexview = $('#hexview');
+    const imageHeader = $('#image-header');
 
     let file = null;
     let start = parseInt(inputStart.value);
@@ -91,6 +116,7 @@ async function init() {
         preview.putImageData(img, 0, 0);
 
         hexview.value = bytesToHex(bytes, width);
+        imageHeader.value = findFirstImageHeader(bytes);
     }
 
     inputFile.addEventListener('change', e => {
@@ -141,6 +167,62 @@ async function init() {
         if (width > 0) {
             start += 10*width;
             inputStart.value = start;
+            updatePreview();
+        }
+    });
+
+    $('#btn-size-align-to-width').addEventListener('click', () => {
+        if (width > 0 && size % width > 0) {
+            size += width - (size % width);
+            inputSize.value = size;
+            updatePreview();
+        }
+    });
+
+    $('#btn-size-add-10rows').addEventListener('click', () => {
+        if (width > 0) {
+            size += 10*width;
+            inputSize.value = size;
+            updatePreview();
+        }
+    });
+
+    $('#btn-size-add-row').addEventListener('click', () => {
+        if (width > 0) {
+            size += width;
+            inputSize.value = size;
+            updatePreview();
+        }
+    });
+
+    $('#btn-size-remove-10rows').addEventListener('click', () => {
+        if (width > 0 && size > 0) {
+            size = Math.max(0, size - 10*width);
+            inputSize.value = size;
+            updatePreview();
+        }
+    });
+
+    $('#btn-size-remove-row').addEventListener('click', () => {
+        if (width > 0 && size > 0) {
+            size = Math.max(0, size - width);
+            inputSize.value = size;
+            updatePreview();
+        }
+    });
+
+    $('#btn-width-inc').addEventListener('click', () => {
+        if (width > 0) {
+            width *= 2;
+            imageWidth.value = width;
+            updatePreview();
+        }
+    });
+
+    $('#btn-width-dec').addEventListener('click', () => {
+        if (width > 1) {
+            width = Math.floor(width / 2);
+            imageWidth.value = width;
             updatePreview();
         }
     });
