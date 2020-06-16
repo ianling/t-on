@@ -1,5 +1,6 @@
 import cv2
 import numpy
+import os
 import struct
 from sys import argv
 
@@ -29,12 +30,12 @@ def draw_image(image):
 			except IndexError:
 				print(f"color out of bounds in image index {image['index']}")
 				r2, g2, b2 = (0,0,0)
-			image_arr[row1][column1][0] = r1
+			image_arr[row1][column1][0] = b1
 			image_arr[row1][column1][1] = g1
-			image_arr[row1][column1][2] = b1
-			image_arr[row2][column2][0] = r2
+			image_arr[row1][column1][2] = r1
+			image_arr[row2][column2][0] = b2
 			image_arr[row2][column2][1] = g2
-			image_arr[row2][column2][2] = b2
+			image_arr[row2][column2][2] = r2
 			pixel_index += 2
 			
 	# if there are more than 16 colors, each byte holds one pixel
@@ -52,9 +53,14 @@ def draw_image(image):
 	return image_arr
 
 
-if len(argv) < 2:
-	print("usage: python3 extract.py <rom_dump.bin>")
+if len(argv) != 3:
+	print("usage: python3 extract.py <rom_dump.bin> <dest dir>")
+	print("dumps backgrounds and sprites from a tamagotchi meets/on rom")
 	exit()
+
+# verify output path exists
+if not os.path.exists(argv[2]):
+	os.mkdir(argv[2])
 
 # read in the binary
 rom_path = argv[1]
@@ -87,8 +93,8 @@ while i < length - 10:
 		for j in range(0, color_section_length, 2):
 			color_index = i + j
 			color_bytes = data[color_index:color_index+2]
-			# convert bytes to little-endian short
-			color16 = struct.unpack('<H', color_bytes)[0]
+			# convert bytes to big-endian short
+			color16 = struct.unpack('>H', color_bytes)[0]
 			# 16-bit->24-bit color conversion stolen from MyMeets
 			# https://tamatown.com/downloads/
 			blue = ((color16 & 0xF800) >> 11) * 255 / 31;
@@ -113,7 +119,7 @@ while i < length - 10:
 print(f"found {len(images)} images total")
 for i, img in enumerate(images):
 	img2 = draw_image(img)
-	cv2.imwrite(f"{i}.jpg", img2)
+	cv2.imwrite(f"{argv[2]}/{i}.png", img2)
 
 """
 # scale the image up for easier viewing
